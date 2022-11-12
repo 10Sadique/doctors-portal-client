@@ -1,5 +1,6 @@
 import React from 'react';
 import treatment from '../assets/images/treatment.png';
+import Button from './Button';
 
 const AboutUs = () => {
     return (
@@ -23,9 +24,7 @@ const AboutUs = () => {
                         here', making it look like readable English. Many
                         desktop publishing packages and web page
                     </p>
-                    <button className="text-white btn btn-primary bg-gradient-to-r from-secondary to-primary">
-                        Get Started
-                    </button>
+                    <Button text="Get Started" />
                 </div>
             </div>
         </div>
