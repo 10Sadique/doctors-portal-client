@@ -1,21 +1,31 @@
 import React from 'react';
+import treatment from '../assets/images/treatment.png';
 
 const AboutUs = () => {
     return (
-        <div className="min-h-screen hero bg-base-200">
-            <div className="flex-col hero-content lg:flex-row">
+        <div className="mt-24 lg:px-32 hero">
+            <div className="flex-col gap-10 lg:gap-14 hero-content lg:flex-row">
                 <img
-                    src="https://placeimg.com/260/400/arch"
-                    className="max-w-sm rounded-lg shadow-2xl"
+                    src={treatment}
+                    className="w-full rounded-lg shadow-2xl lg:w-1/2"
+                    alt=""
                 />
                 <div>
-                    <h1 className="text-5xl font-bold">Box Office News!</h1>
+                    <h1 className="text-5xl font-bold">
+                        Exceptional Dental Care, on Your Terms
+                    </h1>
                     <p className="py-6">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                        assumenda excepturi exercitationem quasi. In deleniti
-                        eaque aut repudiandae et a id nisi.
+                        It is a long established fact that a reader will be
+                        distracted by the readable content of a page when
+                        looking at its layout. The point of using Lorem Ipsumis
+                        that it has a more-or-less normal distribution of
+                        letters,as opposed to using 'Content here, content
+                        here', making it look like readable English. Many
+                        desktop publishing packages and web page
                     </p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <button className="text-white btn btn-primary bg-gradient-to-r from-secondary to-primary">
+                        Get Started
+                    </button>
                 </div>
             </div>
         </div>
