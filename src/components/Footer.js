@@ -29,7 +29,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className="flex items-center justify-center py-10 text-neutral">
-                <p>Copyright © 2022 - All right reserved by Doctors Portal</p>
+                <p className="w-[60%] text-center">
+                    Copyright © 2022 - All right reserved by Doctors Portal
+                </p>
             </div>
         </footer>
     );
