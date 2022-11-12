@@ -6,6 +6,16 @@ module.exports = {
     },
     plugins: [require('daisyui')],
     daisyui: {
-        themes: ['corporate'],
+        themes: [
+            {
+                doctosPortal: {
+                    primary: '#0FCFEC',
+                    secondary: '#19deae',
+                    accent: '#67CBA0',
+                    neutral: '#3a4256',
+                    'base-100': '#FFFFFF',
+                },
+            },
+        ],
     },
 };
