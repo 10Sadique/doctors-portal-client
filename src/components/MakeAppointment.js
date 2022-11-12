@@ -6,7 +6,7 @@ import Button from './Button';
 const MakeAppointment = () => {
     return (
         <div
-            className="relative mt-20"
+            className="relative mt-32"
             style={{ background: `url(${appointment})` }}
         >
             <div className="hero">
