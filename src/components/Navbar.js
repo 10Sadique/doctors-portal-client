@@ -1,29 +1,64 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     const navItems = (
         <>
             <li>
-                <Link to={`/`}>Home</Link>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? 'text-primary' : ''
+                    }
+                    to={`/`}
+                >
+                    Home
+                </NavLink>
             </li>
             <li>
-                <Link to={`/appointment`}>Appointment</Link>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? 'text-primary' : ''
+                    }
+                    to={`/appointment`}
+                >
+                    Appointment
+                </NavLink>
             </li>
             <li>
-                <Link to={`/about`}>About</Link>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? 'text-primary' : ''
+                    }
+                    to={`/about`}
+                >
+                    About
+                </NavLink>
             </li>
             <li>
-                <Link to={`/reviews`}>Reviews</Link>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? 'text-primary' : ''
+                    }
+                    to={`/reviews`}
+                >
+                    Reviews
+                </NavLink>
             </li>
             <li>
-                <Link to={`/signin`}>Sign In</Link>
+                <NavLink
+                    className={({ isActive }) =>
+                        isActive ? 'text-primary' : ''
+                    }
+                    to={`/signin`}
+                >
+                    Sign In
+                </NavLink>
             </li>
         </>
     );
 
     return (
-        <div className="max-w-6xl mx-auto navbar bg-base-100">
+        <div className="max-w-[1200px] mx-auto navbar bg-base-100">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -57,7 +92,9 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="hidden navbar-end lg:flex">
-                <ul className="p-0 menu menu-horizontal">{navItems}</ul>
+                <ul className="p-0 font-semibold menu menu-horizontal">
+                    {navItems}
+                </ul>
             </div>
         </div>
     );
