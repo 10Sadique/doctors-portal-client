@@ -33,11 +33,11 @@ const Testimonial = () => {
     return (
         <div className="mt-20">
             <div className="relative">
-                <div>
+                <div className="text-center lg:text-left">
                     <h1 className="text-xl font-bold text-primary">
                         Testimonial
                     </h1>
-                    <p className="text-4xl text-neutral mt-2.5 ">
+                    <p className="lg:text-4xl text-3xl text-neutral mt-2.5 ">
                         What Our Patients Says
                     </p>
                 </div>
