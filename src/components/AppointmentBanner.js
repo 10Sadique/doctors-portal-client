@@ -3,7 +3,7 @@ import { DayPicker } from 'react-day-picker';
 import bg from '../assets/images/bg.png';
 import chair from '../assets/images/chair.png';
 
-const AppointmentBanner = ({ selected, setSelected }) => {
+const AppointmentBanner = ({ selectedDate, setSelectedDate }) => {
     const css = `
   .my-selected:not([disabled]) { 
     background-color: #0FCFEC;
@@ -25,8 +25,8 @@ const AppointmentBanner = ({ selected, setSelected }) => {
                         <DayPicker
                             className="bg-white p-5 rounded-2xl shadow-2xl"
                             mode="single"
-                            selected={selected}
-                            onSelect={setSelected}
+                            selected={selectedDate}
+                            onSelect={setSelectedDate}
                             modifiersClassNames={{ selected: 'my-selected' }}
                             // footer={footer}
                         />

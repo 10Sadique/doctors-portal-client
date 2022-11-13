@@ -1,19 +1,17 @@
 import React from 'react';
 import AppointmentBanner from '../components/AppointmentBanner';
-import { format } from 'date-fns';
+import AvailableAppointments from '../components/AvailableAppointments';
 
 const AppointmentPage = () => {
     const [selected, setSelected] = React.useState(new Date());
 
-    let footer = <p>Please Pick Appointment Date.</p>;
-    if (selected) {
-        footer = <p>You picked {format(selected, 'PP')}.</p>;
-    }
-
     return (
         <div>
-            <AppointmentBanner selected={selected} setSelected={setSelected} />
-            <div>{footer}</div>
+            <AppointmentBanner
+                selectedDate={selected}
+                setSelectedDate={setSelected}
+            />
+            <AvailableAppointments selected={selected} />
         </div>
     );
 };
