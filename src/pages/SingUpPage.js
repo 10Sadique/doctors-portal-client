@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const SingUpPage = () => {
+    const [error, setError] = useState('');
+    const { signUp, updateUser, setLoading } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
+    // navigation variables
+    const navigate = useNavigate();
+    const location = useLocation();
+    const to = location.state?.from?.pathname || '/';
+
     const handleSignIn = (data) => {
         console.log(data);
+        signUp(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                setError('');
+
+                // setting username
+                updateUser(data.name)
+                    .then(() => {
+                        console.log('Username added!');
+                    })
+                    .catch((err) => {
+                        setError(err.message);
+                        console.error(err.message);
+                    });
+
+                console.log(user);
+                navigate(to, { replace: true });
+            })
+            .catch((err) => {
+                setError(err.message);
+                console.error(err.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+        toast.error(error.slice(9, -1));
     };
 
     return (
@@ -73,12 +108,13 @@ const SingUpPage = () => {
                                 },
                                 pattern: {
                                     value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
-                                    message: 'Enter a strong password',
+                                    message:
+                                        'Password must have a number, a uppercase letter and a special character',
                                 },
                             })}
                         />
                         {errors.password && (
-                            <p className="mt-2 text-error" role="alert">
+                            <p className="mt-2 text-error w-full" role="alert">
                                 {errors.password?.message}
                             </p>
                         )}
