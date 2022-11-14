@@ -28,6 +28,7 @@ const SingUpPage = () => {
                 // setting username
                 updateUser(data.name)
                     .then(() => {
+                        setError('');
                         console.log('Username added!');
                     })
                     .catch((err) => {
