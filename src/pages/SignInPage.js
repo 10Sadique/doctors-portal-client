@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const SignInPage = () => {
+    const [error, setError] = useState('');
+    const { setLoading, signIn } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
+    // navigation variables
+    const navigate = useNavigate();
+    const location = useLocation();
+    const to = location.state?.from?.pathname || '/';
+
     const handleSignIn = (data) => {
         console.log(data);
+
+        signIn(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                setError('');
+                console.log(user);
+                navigate(to, { replace: true });
+            })
+            .catch((err) => {
+                setError(err.message);
+                console.error(err.message);
+                toast.error(error.slice(9, -1) || 'Something went wrong!');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
