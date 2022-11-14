@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard';
 import HomePage from '../pages/HomePage';
 import SignInPage from '../pages/SignInPage';
 import SingUpPage from '../pages/SingUpPage';
+import PrivateRoute from './PrivateRoute';
 
 export const router = createBrowserRouter([
     {
@@ -17,5 +18,12 @@ export const router = createBrowserRouter([
             { path: '/appointment', element: <AppointmentPage /> },
         ],
     },
-    { path: '/dashboard', element: <Dashboard /> },
+    {
+        path: '/dashboard',
+        element: (
+            <PrivateRoute>
+                <Dashboard />
+            </PrivateRoute>
+        ),
+    },
 ]);
