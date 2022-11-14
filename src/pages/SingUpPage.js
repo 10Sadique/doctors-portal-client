@@ -34,7 +34,9 @@ const SingUpPage = () => {
                     .catch((err) => {
                         setError(err.message);
                         console.error(err.message);
-                        toast.error(error.slice(9, -1));
+                        toast.error(
+                            error.slice(9, -1) || 'Something went wrong!'
+                        );
                     });
 
                 console.log(user);
