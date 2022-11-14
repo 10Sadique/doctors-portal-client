@@ -47,20 +47,22 @@ const Navbar = () => {
                     About
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    className={({ isActive }) =>
-                        isActive ? 'text-primary' : ''
-                    }
-                    to={`/reviews`}
-                >
-                    Reviews
-                </NavLink>
-            </li>
             {user && (
-                <li>
-                    <button onClick={handleSignOut}>Sign Out</button>
-                </li>
+                <Fragment>
+                    <li>
+                        <NavLink
+                            className={({ isActive }) =>
+                                isActive ? 'text-primary' : ''
+                            }
+                            to={`/dashboard`}
+                        >
+                            Dashboard
+                        </NavLink>
+                    </li>
+                    <li>
+                        <button onClick={handleSignOut}>Sign Out</button>
+                    </li>
+                </Fragment>
             )}
 
             {!user && (
