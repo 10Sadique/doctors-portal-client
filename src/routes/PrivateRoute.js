@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-96">
-                <button className="btn btn-primary loading">loading</button>
+                <progress className="progress progress-primary w-56"></progress>
             </div>
         );
     }
