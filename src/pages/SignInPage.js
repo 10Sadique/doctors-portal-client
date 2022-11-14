@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthProvider';
 
 const SignInPage = () => {
     const [error, setError] = useState('');
-    const { setLoading, signIn } = useContext(AuthContext);
+    const { setLoading, signIn, googleSignIn } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -22,6 +22,24 @@ const SignInPage = () => {
         console.log(data);
 
         signIn(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                setError('');
+                console.log(user);
+                navigate(to, { replace: true });
+            })
+            .catch((err) => {
+                setError(err.message);
+                console.error(err.message);
+                toast.error(error.slice(9, -1) || 'Something went wrong!');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
             .then((result) => {
                 const user = result.user;
                 setError('');
@@ -103,7 +121,10 @@ const SignInPage = () => {
                     </Link>
                 </p>
                 <div className="divider">OR</div>
-                <button className="btn w-full btn-outline btn-primary">
+                <button
+                    onClick={handleGoogleSignIn}
+                    className="btn w-full btn-outline btn-primary"
+                >
                     Contnue with Google
                 </button>
             </div>
