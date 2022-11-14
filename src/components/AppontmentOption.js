@@ -16,6 +16,7 @@ const AppontmentOption = ({ option, setTreatment }) => {
                 </p>
                 <div className="card-actions justify-center mt-5">
                     <label
+                        disabled={slots.length === 0}
                         onClick={() => setTreatment(option)}
                         htmlFor="booking-modal"
                         className="text-white btn btn-primary bg-gradient-to-r from-secondary to-primary"
