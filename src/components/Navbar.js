@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                console.log('Signed Out');
+            })
+            .catch((err) => {
+                console.error(err.message);
+            });
+    };
+
     const navItems = (
-        <>
+        <Fragment>
             <li>
                 <NavLink
                     className={({ isActive }) =>
@@ -44,19 +57,26 @@ const Navbar = () => {
                     Reviews
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    className={({ isActive }) =>
-                        isActive ? 'text-primary' : ''
-                    }
-                    to={`/signin`}
-                >
-                    Sign In
-                </NavLink>
-            </li>
-        </>
-    );
+            {user && (
+                <li>
+                    <button onClick={handleSignOut}>Sign Out</button>
+                </li>
+            )}
 
+            {!user && (
+                <li>
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive ? 'text-primary' : ''
+                        }
+                        to={`/signin`}
+                    >
+                        Sign In
+                    </NavLink>
+                </li>
+            )}
+        </Fragment>
+    );
     return (
         <div className="max-w-[1200px] mx-auto px-6 navbar bg-base-100">
             <div className="navbar-start">
