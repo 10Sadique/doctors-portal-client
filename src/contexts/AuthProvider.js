@@ -7,6 +7,7 @@ import {
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signInWithPopup,
+    signOut,
     updateProfile,
 } from 'firebase/auth';
 
@@ -42,18 +43,20 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     };
 
+    // sign out
+    const logOut = () => {
+        setLoading(true);
+        return signOut(auth);
+    };
+
     // observer user state changed or not
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-                setLoading(false);
-            }
+            setUser(currentUser);
+            setLoading(false);
         });
 
-        return () => {
-            unSubscribe();
-        };
+        return () => unSubscribe();
     }, []);
 
     // auth context values
@@ -65,6 +68,7 @@ const AuthProvider = ({ children }) => {
         updateUser,
         googleSignIn,
         signIn,
+        logOut,
     };
 
     return (
