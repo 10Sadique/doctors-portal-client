@@ -12,14 +12,19 @@ module.exports = {
     daisyui: {
         themes: [
             {
-                doctosPortal: {
-                    primary: '#0FCFEC',
+                mytheme: {
+                    primary: '#0fcefc',
                     secondary: '#19deae',
                     accent: '#67CBA0',
                     neutral: '#3a4256',
                     'base-100': '#FFFFFF',
+                    info: '#3ABFF8',
+                    success: '#36D399',
+                    warning: '#FBBD23',
+                    error: '#F87272',
                 },
             },
+            'light',
         ],
     },
 };
