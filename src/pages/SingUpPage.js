@@ -34,6 +34,7 @@ const SingUpPage = () => {
                     .catch((err) => {
                         setError(err.message);
                         console.error(err.message);
+                        toast.error(error.slice(9, -1));
                     });
 
                 console.log(user);
@@ -42,11 +43,11 @@ const SingUpPage = () => {
             .catch((err) => {
                 setError(err.message);
                 console.error(err.message);
+                toast.error(error.slice(9, -1));
             })
             .finally(() => {
                 setLoading(false);
             });
-        toast.error(error.slice(9, -1));
     };
 
     return (
