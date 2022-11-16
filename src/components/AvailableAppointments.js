@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import AppontmentOption from './AppontmentOption';
 import BookingModal from './BookingModal';
+import { useQuery } from '@tanstack/react-query';
+import getOptions from '../utils/getOptions';
 
 const AvailableAppointments = ({ selected }) => {
-    const [appointmentOptions, setAppointmentOptions] = useState([]);
     const [treatment, setTreatment] = useState(null);
-
     const date = format(selected, 'PP');
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/appointmentOptions`)
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-                setAppointmentOptions(data);
-            });
-    }, []);
+    // If we set the default value of data then isLoading can be ignored...
+    const { data: appointmentOptions, isLoading } = useQuery({
+        queryKey: 'appointmentOptions',
+        queryFn: getOptions,
+    });
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center h-96">
+                <progress className="progress progress-primary w-56"></progress>
+            </div>
+        );
+    }
 
     return (
         <div>
