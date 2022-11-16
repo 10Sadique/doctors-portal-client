@@ -10,7 +10,7 @@ const AvailableAppointments = ({ selected }) => {
     const date = format(selected, 'PP');
 
     useEffect(() => {
-        fetch(`appointmentOptions.json`)
+        fetch(`http://localhost:5000/appointmentOptions`)
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data);
