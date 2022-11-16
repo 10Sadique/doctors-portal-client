@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import React, { useState } from 'react';
+import getOptions from '../utils/getOptions';
 import AppontmentOption from './AppontmentOption';
 import BookingModal from './BookingModal';
-import { useQuery } from '@tanstack/react-query';
-import getOptions from '../utils/getOptions';
 
 const AvailableAppointments = ({ selected }) => {
     const [treatment, setTreatment] = useState(null);
     const date = format(selected, 'PP');
 
     // If we set the default value of data then isLoading can be ignored...
-    const { data: appointmentOptions, isLoading } = useQuery({
-        queryKey: 'appointmentOptions',
-        queryFn: getOptions,
+    const {
+        data: appointmentOptions,
+        isLoading,
+        refetch,
+    } = useQuery({
+        queryKey: ['appointmentOptions', date],
+        queryFn: () => getOptions(date),
     });
 
     if (isLoading) {
@@ -42,6 +46,7 @@ const AvailableAppointments = ({ selected }) => {
                     setTreatment={setTreatment}
                     date={date}
                     treatment={treatment}
+                    refetch={refetch}
                 />
             )}
         </div>
