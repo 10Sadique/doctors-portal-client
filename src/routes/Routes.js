@@ -7,6 +7,7 @@ import AppointmentPage from '../pages/AppointmentPage';
 import HomePage from '../pages/HomePage';
 import SignInPage from '../pages/SignInPage';
 import SingUpPage from '../pages/SingUpPage';
+import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 
 export const router = createBrowserRouter([
@@ -29,7 +30,14 @@ export const router = createBrowserRouter([
         ),
         children: [
             { path: '/dashboard', element: <MyAppointments /> },
-            { path: '/dashboard/users', element: <AllUsers /> },
+            {
+                path: '/dashboard/users',
+                element: (
+                    <AdminRoute>
+                        <AllUsers />
+                    </AdminRoute>
+                ),
+            },
         ],
     },
 ]);
