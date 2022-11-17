@@ -31,6 +31,7 @@ const SingUpPage = () => {
                     .then(() => {
                         setError('');
                         console.log('Username added!');
+                        saveUser(data.name, data.email);
                     })
                     .catch((err) => {
                         setError(err.message);
@@ -41,7 +42,6 @@ const SingUpPage = () => {
                     });
 
                 console.log(user);
-                navigate(to, { replace: true });
             })
             .catch((err) => {
                 setError(err.message);
@@ -71,19 +71,36 @@ const SingUpPage = () => {
             });
     };
 
+    // save user info to db
+    const saveUser = (name, email) => {
+        const user = { name, email };
+        fetch(`http://localhost:5000/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                navigate(to, { replace: true });
+            });
+    };
+
     return (
         <div className="flex items-center justify-center">
-            <div className="rounded-2xl shadow-xl p-7 md:w-96">
-                <h1 className="text-xl mb-8 text-center">Sign Up</h1>
+            <div className="shadow-xl rounded-2xl p-7 md:w-96">
+                <h1 className="mb-8 text-xl text-center">Sign Up</h1>
                 <form onSubmit={handleSubmit(handleSignIn)}>
-                    <div className="form-control w-full">
+                    <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">
+                            <span className="font-semibold label-text">
                                 Name
                             </span>
                         </label>
                         <input
-                            className="input input-bordered w-full"
+                            className="w-full input input-bordered"
                             type="text"
                             {...register('name', {
                                 required: 'Please enter you name',
@@ -95,14 +112,14 @@ const SingUpPage = () => {
                             </p>
                         )}
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">
+                            <span className="font-semibold label-text">
                                 Email
                             </span>
                         </label>
                         <input
-                            className="input input-bordered w-full"
+                            className="w-full input input-bordered"
                             type="email"
                             {...register('email', {
                                 required: 'Please enter your email',
@@ -114,14 +131,14 @@ const SingUpPage = () => {
                             </p>
                         )}
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">
+                            <span className="font-semibold label-text">
                                 Password
                             </span>
                         </label>
                         <input
-                            className="input input-bordered w-full"
+                            className="w-full input input-bordered"
                             type="password"
                             {...register('password', {
                                 required: 'Password is required',
@@ -137,18 +154,18 @@ const SingUpPage = () => {
                             })}
                         />
                         {errors.password && (
-                            <p className="mt-2 text-error w-full" role="alert">
+                            <p className="w-full mt-2 text-error" role="alert">
                                 {errors.password?.message}
                             </p>
                         )}
                     </div>
                     <input
                         type="submit"
-                        className="btn w-full mt-5"
+                        className="w-full mt-5 btn"
                         value={`Sign Up`}
                     />
                 </form>
-                <p className="text-center text-xs my-3">
+                <p className="my-3 text-xs text-center">
                     Already have an account?{' '}
                     <Link className="text-primary" to={`/signin`}>
                         Sign In
@@ -157,7 +174,7 @@ const SingUpPage = () => {
                 <div className="divider">OR</div>
                 <button
                     onClick={handleGoogleSignIn}
-                    className="btn w-full btn-outline btn-primary"
+                    className="w-full btn btn-outline btn-primary"
                 >
                     Contnue with Google
                 </button>
