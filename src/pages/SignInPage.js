@@ -3,10 +3,13 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useToken from '../hooks/useToken';
 
 const SignInPage = () => {
     const [error, setError] = useState('');
+    const [loginUserEmail, setLoginUserEmail] = useState('');
     const { setLoading, signIn, googleSignIn } = useContext(AuthContext);
+    const [token] = useToken(loginUserEmail);
     const {
         register,
         handleSubmit,
@@ -18,6 +21,10 @@ const SignInPage = () => {
     const location = useLocation();
     const to = location.state?.from?.pathname || '/';
 
+    if (token) {
+        navigate(to, { replace: true });
+    }
+
     const handleSignIn = (data) => {
         console.log(data);
 
@@ -26,7 +33,7 @@ const SignInPage = () => {
                 const user = result.user;
                 setError('');
                 console.log(user);
-                navigate(to, { replace: true });
+                setLoginUserEmail(user.email);
             })
             .catch((err) => {
                 setError(err.message);
@@ -58,17 +65,17 @@ const SignInPage = () => {
 
     return (
         <div className="flex items-center justify-center">
-            <div className="rounded-2xl shadow-xl p-7 md:w-96">
-                <h1 className="text-xl mb-8 text-center">Sign In</h1>
+            <div className="shadow-xl rounded-2xl p-7 md:w-96">
+                <h1 className="mb-8 text-xl text-center">Sign In</h1>
                 <form onSubmit={handleSubmit(handleSignIn)}>
-                    <div className="form-control w-full">
+                    <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">
+                            <span className="font-semibold label-text">
                                 Email
                             </span>
                         </label>
                         <input
-                            className="input input-bordered w-full"
+                            className="w-full input input-bordered"
                             type="email"
                             {...register('email', {
                                 required: 'Email Address is required',
@@ -80,14 +87,14 @@ const SignInPage = () => {
                             </p>
                         )}
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">
+                            <span className="font-semibold label-text">
                                 Password
                             </span>
                         </label>
                         <input
-                            className="input input-bordered w-full"
+                            className="w-full input input-bordered"
                             type="password"
                             {...register('password', {
                                 required: 'Password is required',
@@ -110,11 +117,11 @@ const SignInPage = () => {
                     </div>
                     <input
                         type="submit"
-                        className="btn w-full"
+                        className="w-full btn"
                         value={`Sign In`}
                     />
                 </form>
-                <p className="text-center text-xs my-3">
+                <p className="my-3 text-xs text-center">
                     New to Doctors Portal?{' '}
                     <Link className="text-primary" to={`/signup`}>
                         Create new account
@@ -123,7 +130,7 @@ const SignInPage = () => {
                 <div className="divider">OR</div>
                 <button
                     onClick={handleGoogleSignIn}
-                    className="btn w-full btn-outline btn-primary"
+                    className="w-full btn btn-outline btn-primary"
                 >
                     Contnue with Google
                 </button>
