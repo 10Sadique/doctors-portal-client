@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useToken from '../hooks/useToken';
 
 const SingUpPage = () => {
     const [error, setError] = useState('');
@@ -14,10 +15,17 @@ const SingUpPage = () => {
         formState: { errors },
     } = useForm();
 
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+
     // navigation variables
     const navigate = useNavigate();
     const location = useLocation();
     const to = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(to, { replace: true });
+    }
 
     const handleSignIn = (data) => {
         console.log(data);
@@ -83,19 +91,7 @@ const SingUpPage = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                getUserToken(email);
-            });
-    };
-
-    // get user token
-    const getUserToken = (email) => {
-        fetch(`http://localhost:5000/jwt?email=${email}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.accessToken) {
-                    localStorage.setItem('accessToken', data.accessToken);
-                    navigate(to, { replace: true });
-                }
+                setCreatedUserEmail(email);
             });
     };
 
