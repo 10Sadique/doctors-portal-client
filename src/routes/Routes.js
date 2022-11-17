@@ -3,7 +3,6 @@ import MyAppointments from '../components/MyAppointments';
 import DashboardLayout from '../layout/DashboardLayout';
 import Main from '../layout/Main';
 import AppointmentPage from '../pages/AppointmentPage';
-import Dashboard from '../pages/Dashboard';
 import HomePage from '../pages/HomePage';
 import SignInPage from '../pages/SignInPage';
 import SingUpPage from '../pages/SingUpPage';
