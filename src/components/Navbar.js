@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -81,7 +82,7 @@ const Navbar = () => {
     );
     return (
         <div className="max-w-[1200px] mx-auto px-6 navbar bg-base-100">
-            <div className="navbar-start">
+            <div className="w-full navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg
@@ -99,8 +100,9 @@ const Navbar = () => {
                             />
                         </svg>
                     </label>
+
                     <ul
-                        tabIndex={0}
+                        tabIndex={1}
                         className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
                     >
                         {navItems}
@@ -118,6 +120,13 @@ const Navbar = () => {
                     {navItems}
                 </ul>
             </div>
+            <label
+                htmlFor="dashboard-drawer"
+                tabIndex={2}
+                className="btn btn-ghost lg:hidden"
+            >
+                <Bars3Icon className="w-8 h-8 text-black" />
+            </label>
         </div>
     );
 };
