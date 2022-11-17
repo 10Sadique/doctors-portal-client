@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { AuthContext } from '../contexts/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
 
 const DashboardLayout = () => {
+    const { user } = useContext(AuthContext);
+    const [isAdmin] = useAdmin(user.email);
+
+    console.log(isAdmin);
+
     return (
         <div>
             <div className="shadow-sm">
@@ -30,9 +37,11 @@ const DashboardLayout = () => {
                         <li>
                             <Link to={`/dashboard`}>My Appointments</Link>
                         </li>
-                        <li>
-                            <Link to={`/dashboard/users`}>All Users</Link>
-                        </li>
+                        {isAdmin && (
+                            <li>
+                                <Link to={`/dashboard/users`}>All Users</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
