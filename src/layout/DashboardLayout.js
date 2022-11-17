@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
@@ -35,6 +36,7 @@ const DashboardLayout = () => {
                     </ul>
                 </div>
             </div>
+            <Toaster position="top-center" reverseOrder={false} />
         </div>
     );
 };
