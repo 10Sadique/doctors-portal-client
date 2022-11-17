@@ -1,11 +1,13 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 const DashboardLayout = () => {
     return (
         <div>
-            <Navbar />
+            <div className="shadow-sm">
+                <Navbar />
+            </div>
             {/* SideNav */}
             <div className="drawer drawer-mobile">
                 <input
@@ -22,13 +24,13 @@ const DashboardLayout = () => {
                         htmlFor="dashboard-drawer"
                         className="drawer-overlay"
                     ></label>
-                    <ul className="p-4 menu w-80 bg-base-100 text-base-content">
+                    <ul className="p-4 bg-gray-100 menu w-80 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         <li>
-                            <a>Sidebar Item 1</a>
+                            <Link to={`/dashboard`}>My Appointments</Link>
                         </li>
                         <li>
-                            <a>Sidebar Item 2</a>
+                            <Link to={`/dashboard/users`}>All Users</Link>
                         </li>
                     </ul>
                 </div>

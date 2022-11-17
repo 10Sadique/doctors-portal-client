@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import AllUsers from '../components/AllUsers';
 import MyAppointments from '../components/MyAppointments';
 import DashboardLayout from '../layout/DashboardLayout';
 import Main from '../layout/Main';
@@ -26,6 +27,9 @@ export const router = createBrowserRouter([
                 <DashboardLayout />
             </PrivateRoute>
         ),
-        children: [{ path: '/dashboard', element: <MyAppointments /> }],
+        children: [
+            { path: '/dashboard', element: <MyAppointments /> },
+            { path: '/dashboard/users', element: <AllUsers /> },
+        ],
     },
 ]);
