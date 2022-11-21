@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../contexts/AuthProvider';
 
 const AllUsers = () => {
     const url = `http://localhost:5000/users`;
+    const { logOut } = useContext(AuthContext);
     const {
         data: users,
         isLoading,
@@ -30,6 +32,13 @@ const AllUsers = () => {
                 if (data.modifiedCount > 0) {
                     toast.success('Successfully made admin');
                     refetch();
+                } else {
+                    localStorage.removeItem('accessToken');
+                    logOut()
+                        .then(() => {
+                            console.log('Token expired');
+                        })
+                        .catch((err) => console.log(err));
                 }
             });
     };
