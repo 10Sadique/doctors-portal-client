@@ -9,8 +9,6 @@ const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
     const [isAdmin] = useAdmin(user.email);
 
-    console.log(isAdmin);
-
     return (
         <div>
             <div className="shadow-sm">
@@ -32,15 +30,29 @@ const DashboardLayout = () => {
                         htmlFor="dashboard-drawer"
                         className="drawer-overlay"
                     ></label>
-                    <ul className="p-4 bg-gray-100 menu w-80 text-base-content">
+                    <ul className="p-4 menu w-80 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         <li>
                             <Link to={`/dashboard`}>My Appointments</Link>
                         </li>
                         {isAdmin && (
-                            <li>
-                                <Link to={`/dashboard/users`}>All Users</Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link to={`/dashboard/users`}>
+                                        All Users
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={`/dashboard/addDoctor`}>
+                                        Add Doctors
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={`/dashboard/manageDoctors`}>
+                                        Manage Doctors
+                                    </Link>
+                                </li>
+                            </>
                         )}
                     </ul>
                 </div>
