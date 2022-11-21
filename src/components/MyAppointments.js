@@ -1,19 +1,35 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
-import getBookingsByEmail from '../utils/getBookingsByEmail';
 
 const MyAppointments = () => {
     const { user } = useContext(AuthContext);
-    const email = user.email;
 
     const {
         data: bookings,
         isLoading,
-        refetch,
+        // refetch,
     } = useQuery({
-        queryKey: ['bookings', email],
-        queryFn: () => getBookingsByEmail(email),
+        queryKey: ['bookings', user.email],
+        queryFn: async () => {
+            try {
+                const res = await fetch(
+                    `http://localhost:5000/bookings?email=${user.email}`,
+                    {
+                        headers: {
+                            authorization: `bearer ${localStorage.getItem(
+                                'accessToken'
+                            )}`,
+                        },
+                    }
+                );
+                const data = await res.json();
+                return data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
     });
 
     if (isLoading) {
@@ -36,6 +52,7 @@ const MyAppointments = () => {
                             <th>Treatment</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +63,22 @@ const MyAppointments = () => {
                                 <td>{booking.treatment}</td>
                                 <td>{booking.appointmentDate}</td>
                                 <td>{booking.slot}</td>
+                                <td>
+                                    {booking.price && !booking.paid && (
+                                        <Link
+                                            to={`/dashboard/payment/${booking._id}`}
+                                        >
+                                            <button className="btn btn-primary text-white btn-sm">
+                                                Pay
+                                            </button>
+                                        </Link>
+                                    )}
+                                    {booking.price && booking.paid && (
+                                        <span className="text-success">
+                                            Paid
+                                        </span>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

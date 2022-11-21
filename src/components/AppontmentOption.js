@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AppontmentOption = ({ option, setTreatment }) => {
-    const { name, slots } = option;
+    const { name, slots, price } = option;
 
     return (
         <div className="card w-full bg-base-100 shadow-xl">
@@ -14,6 +14,7 @@ const AppontmentOption = ({ option, setTreatment }) => {
                     {slots.length} {slots.length > 1 ? 'spaces' : 'space'}{' '}
                     available
                 </p>
+                <p className="text-2xl text-neutral">${price}</p>
                 <div className="card-actions justify-center mt-5">
                     <label
                         disabled={slots.length === 0}
