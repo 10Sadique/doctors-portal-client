@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../contexts/AuthProvider';
 
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
-    const { name, slots } = treatment; // treatment is appointment options
+    const { name, slots, price } = treatment; // treatment is appointment options
     const { user } = useContext(AuthContext);
 
     const handleSubmit = (e) => {
@@ -23,6 +23,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
             email,
             phone,
             slot,
+            price,
         };
 
         /**
