@@ -5,7 +5,7 @@ import ConfirmationModal from './ConfirmationModal';
 
 const ManageDoctors = () => {
     const [deletingDoctor, setDeletingDoctor] = useState(null);
-    const url = 'http://localhost:5000/doctors';
+    const url = 'https://doctors-portal-server-ten.vercel.app/doctors';
     const {
         data: doctors,
         isLoading,
@@ -30,7 +30,7 @@ const ManageDoctors = () => {
     });
 
     const handleDelete = (id) => {
-        const url = `http://localhost:5000/doctors/${id}`;
+        const url = `https://doctors-portal-server-ten.vercel.app/doctors/${id}`;
 
         fetch(url, {
             method: 'DELETE',

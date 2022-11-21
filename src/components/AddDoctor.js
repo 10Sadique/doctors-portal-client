@@ -34,16 +34,19 @@ const AddDoctor = () => {
                         imageURL: imgData.data.url,
                     };
 
-                    fetch(`http://localhost:5000/doctors`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            authorization: `Bearer ${localStorage.getItem(
-                                'accessToken'
-                            )}`,
-                        },
-                        body: JSON.stringify(doctor),
-                    })
+                    fetch(
+                        `https://doctors-portal-server-ten.vercel.app/doctors`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                authorization: `Bearer ${localStorage.getItem(
+                                    'accessToken'
+                                )}`,
+                            },
+                            body: JSON.stringify(doctor),
+                        }
+                    )
                         .then((res) => res.json())
                         .then((resData) => {
                             console.log(resData);
@@ -56,7 +59,8 @@ const AddDoctor = () => {
             });
     };
 
-    const url = 'http://localhost:5000/appointmentSpecialty';
+    const url =
+        'https://doctors-portal-server-ten.vercel.app/appointmentSpecialty';
     const { data: specialities, isLoading } = useQuery({
         queryKey: ['speciality'],
         queryFn: async () => {

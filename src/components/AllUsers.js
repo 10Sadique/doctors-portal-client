@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../contexts/AuthProvider';
 
 const AllUsers = () => {
-    const url = `http://localhost:5000/users`;
+    const url = `https://doctors-portal-server-ten.vercel.app/users`;
     const { logOut } = useContext(AuthContext);
     const {
         data: users,
@@ -20,12 +20,17 @@ const AllUsers = () => {
     });
 
     const handleMakeAdmin = (id) => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
-            method: 'PUT',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-        })
+        fetch(
+            `https://doctors-portal-server-ten.vercel.app/users/admin/${id}`,
+            {
+                method: 'PUT',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        'accessToken'
+                    )}`,
+                },
+            }
+        )
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
